@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+ /* { padding: 0; margin: 0; }  */
+
+ canvas { background: #5673a0; display: block; margin: 0 auto; }
