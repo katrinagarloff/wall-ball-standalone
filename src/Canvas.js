@@ -107,6 +107,7 @@ export default class Canvas extends Component {
       },
       () => setInterval(() => {
       this.draw(canvas, ctx)}, 10
+      this.
     )
 )
 
