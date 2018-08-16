@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-// const ctx = canvas.getContext("2d")
-const UserBall = (props) => {
+
+
+export default class UserBall extends Component {
+  // const ctx = props.canvas.getContext("2d")
+  componentDidMount() {
+    // const ctx = this.props.canvas.getContext("2d")
+    console.log(this.props.canvas)
+  }
+
+  render(){
+
   return (
     <div> </div>
   )
+  }
 }
-
-export default UserBall
