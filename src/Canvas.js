@@ -16,7 +16,7 @@ export default class Canvas extends Component {
   }
 
   drawBall = (ctx, ballRadius, color, x, y) => {
-
+    console.log(color)
       ctx.beginPath()
       ctx.arc(x, y, ballRadius, 0, Math.PI*2)
       ctx.fillStyle = color
@@ -29,7 +29,11 @@ export default class Canvas extends Component {
     const ballRadius = 10
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+
       this.drawBall(ctx, ballRadius, "#0095DD", this.state.bouncingBall.x, this.state.bouncingBall.y)
+
+      this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
+      
       if (this.state.bouncingBall.x + this.state.bouncingBall.dirX > canvas.width-ballRadius || this.state.bouncingBall.x + this.state.bouncingBall.dirX < ballRadius) {
           this.setState(prevState => {
             return {
@@ -92,6 +96,7 @@ export default class Canvas extends Component {
   componentDidMount(){
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
+    const ballRadius = 10
 
     this.setState({
         bouncingBall:
@@ -107,7 +112,6 @@ export default class Canvas extends Component {
       },
       () => setInterval(() => {
       this.draw(canvas, ctx)}, 10
-      this.
     )
 )
 
