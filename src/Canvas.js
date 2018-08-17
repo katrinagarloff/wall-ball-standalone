@@ -54,7 +54,6 @@ export default class Canvas extends Component {
   }
 
   draw = (canvas, ctx) => {
-
     const ballRadius = 20
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -65,7 +64,7 @@ export default class Canvas extends Component {
 
         this.switchDirection("dirX")
       }
-      if(this.state.bouncingBall.y + this.state.bouncingBall.dirY > canvas.height-ballRadius || this.state.bouncingBall.y + this.state.bouncingBall.dirY < ballRadius) {
+      if (this.state.bouncingBall.y + this.state.bouncingBall.dirY > canvas.height-ballRadius || this.state.bouncingBall.y + this.state.bouncingBall.dirY < ballRadius) {
 
         this.switchDirection("dirY")
 
@@ -87,7 +86,7 @@ export default class Canvas extends Component {
 
   changeArrowState = (e, bool) => {
 
-    if(e.key === "ArrowUp") {
+    if (e.key === "ArrowUp") {
       this.updateArrow("up", bool)
 
     } else if (e.key === "ArrowDown") {
@@ -109,53 +108,38 @@ export default class Canvas extends Component {
     this.changeArrowState(e, false)
   }
 
-  moveUserBall = (canvas, ctx) => {
+  moveUserBall = (xy, dir) => {
+    this.setState(prevState => {
+      return {
+        userBall:
+        { ...prevState.userBall,
+          [xy]: prevState.userBall[xy] += dir }
+      }
+    })
+  }
+
+  drawUserBall = (canvas, ctx) => {
     const ballRadius = 10
 
     this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
 
     if(this.state.arrow.up && this.state.userBall.y -4 > 0 + ballRadius) {
-      // console.log(`ball y ${this.state.userBall.y} canvas height${canvas.height}`)
-      this.setState(prevState => {
-        return {
-          userBall:
-          { ...prevState.userBall,
-            // x: prevState.userBall.x += 4,
-            y: prevState.userBall.y += -4 }
-        }
-      })
+      this.moveUserBall("y", -4)
+
     } else if (this.state.arrow.down && this.state.userBall.y +4 < canvas.height - ballRadius) {
-      this.setState(prevState => {
-        return {
-          userBall:
-          { ...prevState.userBall,
-            y: prevState.userBall.y += 4 }
-        }
-      })
+      this.moveUserBall("y", 4)
+
     }  else if (this.state.arrow.left && this.state.userBall.x -4 > 0 + ballRadius) {
-      this.setState(prevState => {
-        return {
-          userBall:
-          { ...prevState.userBall,
-            x: prevState.userBall.x += -4 }
-        }
-      })
+      this.moveUserBall("x", -4)
+
     } else if (this.state.arrow.right && this.state.userBall.x +4 < canvas.width - ballRadius) {
-      this.setState(prevState => {
-        return {
-          userBall:
-          { ...prevState.userBall,
-            x: prevState.userBall.x += 4 }
-        }
-      })
+      this.moveUserBall("x", 4)
     }
   }
-
 
   componentDidMount(){
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
-
 
     this.setState({
         bouncingBall:
@@ -173,7 +157,7 @@ export default class Canvas extends Component {
       setInterval(() => {
       this.draw(canvas, ctx)}, 10 )
       setInterval(() => {
-      this.moveUserBall(canvas, ctx)}, 10
+      this.drawUserBall(canvas, ctx)}, 10
       )
     }
     )
@@ -187,11 +171,7 @@ export default class Canvas extends Component {
         { this.state.ballCollision ?
         <p> you lost </p>
         : <canvas id="myCanvas" width={800} height={800}  onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp} tabIndex="0"> </canvas> }
-
-
-
       </div>
     )
   }
 }
-// <UserBall drawBall={this.drawBall} startingPosition={this.startingPosition}/>
