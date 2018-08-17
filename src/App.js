@@ -6,7 +6,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Canvas width={800} height={800} />
+      
+        <Canvas />
       </div>
     );
   }

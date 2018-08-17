@@ -12,11 +12,16 @@ export default class Canvas extends Component {
     { x: 0,
       y: 0,
       dirX: 0,
-      dirY: 0 }
+      dirY: 0 },
+    arrow:
+    { up: false,
+      down: false,
+      left: false,
+      right: false
+    }
   }
 
   drawBall = (ctx, ballRadius, color, x, y) => {
-    console.log(color)
       ctx.beginPath()
       ctx.arc(x, y, ballRadius, 0, Math.PI*2)
       ctx.fillStyle = color
@@ -32,8 +37,6 @@ export default class Canvas extends Component {
 
       this.drawBall(ctx, ballRadius, "#0095DD", this.state.bouncingBall.x, this.state.bouncingBall.y)
 
-      this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
-      
       if (this.state.bouncingBall.x + this.state.bouncingBall.dirX > canvas.width-ballRadius || this.state.bouncingBall.x + this.state.bouncingBall.dirX < ballRadius) {
           this.setState(prevState => {
             return {
@@ -82,6 +85,62 @@ export default class Canvas extends Component {
         }
   }
 
+
+  changeArrowState = (e, bool) => {
+    if(e.key === "ArrowUp") {
+      this.setState(prevState => {
+        return {
+          arrow:
+          { ...prevState.arrow,
+            up: bool }
+        }
+      })
+
+    } else if (e.key === "ArrowDown") {
+      this.setState(prevState => {
+        return {
+          arrow:
+          { ...prevState.arrow,
+            down: bool }
+        }
+      })
+
+    } else if (e.key === "ArrowLeft") {
+      this.setState(prevState => {
+        return {
+          arrow:
+          { ...prevState.arrow,
+            left: bool }
+        }
+      })
+
+    } else if (e.key === "ArrowRight") {
+      this.setState(prevState => {
+        return {
+          arrow:
+          { ...prevState.arrow,
+            right: bool }
+        }
+      })
+    }
+  }
+
+  handleKeyDown = (e) => {
+    this.changeArrowState(e, true)
+  }
+
+  handleKeyUp = (e) => {
+    this.changeArrowState(e, false)
+  }
+  
+  moveUserBall = (canvas, ctx) => {
+    const ballRadius = 10
+
+    this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
+
+
+  }
+
   startingPosition = (x, y) => {
     this.setState(prevState => {
       return {
@@ -110,12 +169,14 @@ export default class Canvas extends Component {
           dirX: 2,
           dirY: -2 }
       },
-      () => setInterval(() => {
-      this.draw(canvas, ctx)}, 10
+      () => {
+      setInterval(() => {
+      this.draw(canvas, ctx)}, 10 )
+      setInterval(() => {
+      this.moveUserBall(canvas, ctx)}, 10
+      )
+    }
     )
-)
-
-
   }
 
   render() {
@@ -123,14 +184,12 @@ export default class Canvas extends Component {
 
     return (
       <div>
-        <canvas id="myCanvas" width={width} height={height}> </canvas>
 
-        <UserBall canvas={document.getElementById("myCanvas")} drawBall={this.drawBall} startingPosition={this.startingPosition}/>
+        <canvas id="myCanvas" width={800} height={800} onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp} tabIndex="0"> </canvas>
+
+
       </div>
     )
   }
 }
-// ballX: 0,
-// ballY: 0,
-// dirX: 0,
-// dirY: 0
+// <UserBall drawBall={this.drawBall} startingPosition={this.startingPosition}/>
