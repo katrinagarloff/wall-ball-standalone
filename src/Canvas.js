@@ -17,7 +17,7 @@ export default class Canvas extends Component {
       left: false,
       right: false
     },
-    walls: [],
+    walls: [{x: 500, y: 100}],
     ballCollision: false,
     timer: 0
 
@@ -44,6 +44,20 @@ export default class Canvas extends Component {
             }
       )
     }
+  }
+
+  checkForWall = () => {
+    return !!(this.state.comp.x + this.state.comp.dirX > this.state.walls[0].x -25 &&
+    this.state.comp.x + this.state.comp.dirX < this.state.walls[0].x +25 &&
+    this.state.comp.y + this.state.comp.dirY > this.state.walls[0].y -110 &&
+    this.state.comp.y + this.state.comp.dirY < this.state.walls[0].y +110)
+  }
+
+drawWall = () => {
+    var c = document.getElementById("myCanvas")
+    var ctx = c.getContext("2d")
+    ctx.fillStyle = "#1a1d23"
+    ctx.fillRect(this.state.walls[0].x, this.state.walls[0].y, 5, 100)
   }
 
   drawBall = (ctx, ballRadius, color, x, y) => {
@@ -83,7 +97,8 @@ export default class Canvas extends Component {
 
       this.drawBall(ctx, ballRadius, "#0095DD", this.state.comp.x, this.state.comp.y)
 
-      if (this.state.comp.x + this.state.comp.dirX >  canvas.width-ballRadius || this.state.comp.x + this.state.comp.dirX < ballRadius) {
+      if (this.state.comp.x + this.state.comp.dirX >  canvas.width-ballRadius || this.state.comp.x + this.state.comp.dirX < ballRadius || this.checkForWall()
+    ){
 
         this.switchDirection("dirX")
       }
@@ -178,10 +193,10 @@ export default class Canvas extends Component {
       },
       () => {
       setInterval(() => {
-      this.draw(canvas, ctx)}, 10 )
+      this.draw(canvas, ctx)}, 10)
       setInterval(() => {
-      this.drawUserBall(canvas, ctx)}, 10
-      )
+      this.drawUserBall(canvas, ctx)}, 10)
+      setInterval(() => {this.drawWall()}, 10)
     }
     )
   }
