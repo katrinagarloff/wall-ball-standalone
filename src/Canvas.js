@@ -10,7 +10,9 @@ export default class Canvas extends Component {
       dirY: 0 },
     userBall:
     { x: 0,
-      y: 0 },
+      y: 0,
+      dirX: 0,
+      dirY: 0 },
     arrow:
     { up: false,
       down: false,
@@ -36,21 +38,22 @@ export default class Canvas extends Component {
               { x: 0,
                 y: 0,
                 dirX: 0,
-                dirY: 0
-              },
+                dirY: 0 },
             userBall:
               { x: 0,
-                y: 0 }
+                y: 0,
+                dirX: 0,
+                dirY: 0 }
             }
       )
     }
   }
 
-  checkForWall = (wall) => {
-    return (this.state.comp.x + this.state.comp.dirX > wall.x -25 &&
-      this.state.comp.x + this.state.comp.dirX < wall.x +25 &&
-      this.state.comp.y + this.state.comp.dirY > wall.y -110 &&
-      this.state.comp.y + this.state.comp.dirY < wall.y +110)
+  checkForWall = (wall, ballState) => {
+    return (ballState.x + ballState.dirX > wall.x -25 &&
+      ballState.x + ballState.dirX < wall.x +25 &&
+      ballState.y + ballState.dirY > wall.y -110 &&
+      ballState.y + ballState.dirY < wall.y +110)
   }
 
 drawWall = () => {
@@ -99,7 +102,7 @@ drawWall = () => {
 
       this.drawBall(ctx, ballRadius, "#0095DD", this.state.comp.x, this.state.comp.y)
 
-      if (this.state.comp.x + this.state.comp.dirX >  canvas.width-ballRadius || this.state.comp.x + this.state.comp.dirX < ballRadius || this.state.walls.some(this.checkForWall)
+      if (this.state.comp.x + this.state.comp.dirX >  canvas.width-ballRadius || this.state.comp.x + this.state.comp.dirX < ballRadius || this.state.walls.some((wall) => this.checkForWall(wall, this.state.comp))
     ){
 
         this.switchDirection("dirX")
@@ -148,14 +151,25 @@ drawWall = () => {
     this.changeArrowState(e, false)
   }
 
-  moveUserBall = (xy, dir) => {
+  moveUserBall = (xy, newDir, curDir, nullDir) => {
     this.setState(prevState => {
       return {
         userBall:
         { ...prevState.userBall,
-          [xy]: prevState.userBall[xy] += dir }
+          [xy]: prevState.userBall[xy] += newDir,
+          [curDir]: newDir,
+          [nullDir]: 0
+          }
       }
-    })
+    }, () => this.setState(prevState => {
+        console.log(this.state.userBall)
+      return {
+        userBall:
+        { ...prevState.userBall,
+          [xy]: prevState.userBall[xy] += prevState.userBall[curDir] }
+        }
+    }))
+
   }
 
   drawUserBall = (canvas, ctx) => {
@@ -163,17 +177,17 @@ drawWall = () => {
 
     this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
 
-    if(this.state.arrow.up && this.state.userBall.y -4 > 0 + ballRadius) {
-      this.moveUserBall("y", -4)
+    if(this.state.arrow.up && this.state.userBall.y -3 > 0 + ballRadius) {
+      this.moveUserBall("y", -3, "dirY", "dirX")
 
-    } else if (this.state.arrow.down && this.state.userBall.y +4 < canvas.height - ballRadius) {
-      this.moveUserBall("y", 4)
+    } else if (this.state.arrow.down && this.state.userBall.y +3 < canvas.height - ballRadius) {
+      this.moveUserBall("y", 3, "dirY", "dirX")
 
-    }  else if (this.state.arrow.left && this.state.userBall.x -4 > 0 + ballRadius) {
-      this.moveUserBall("x", -4)
+    }  else if (this.state.arrow.left && this.state.userBall.x -3 > 0 + ballRadius) {
+      this.moveUserBall("x", -3, "dirX", "dirY")
 
-    } else if (this.state.arrow.right && this.state.userBall.x +4 < canvas.width - ballRadius) {
-      this.moveUserBall("x", 4)
+    } else if (this.state.arrow.right && this.state.userBall.x +3 < canvas.width - ballRadius) {
+      this.moveUserBall("x", 3, "dirX", "dirY")
     }
   }
 
@@ -190,8 +204,8 @@ drawWall = () => {
         userBall:
         { x: canvas.width/3,
           y:canvas.height-20,
-          dirX: 2,
-          dirY: -2 }
+          dirX: 3,
+          dirY: 3 }
       },
       () => {
       setInterval(() => {
