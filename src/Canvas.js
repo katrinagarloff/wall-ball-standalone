@@ -19,10 +19,26 @@ export default class Canvas extends Component {
       left: false,
       right: false
     },
-    walls: [{x: 500, y: 100}, {x: 100, y:600}, {x: 500, y: 400}],
+    walls: [{x: 500, y: 100, width: 5, length: 100}, {x: 100, y:600, width: 5, length: 100}, {x: 500, y: 400, width: 5, length: 100}, {x: 200, y: 100, width: 100, length: 5}],
     ballCollision: false,
     timer: 0
 
+  }
+
+  changeArrowState = (e, bool) => {
+
+    if (e.key === "ArrowUp") {
+      this.updateArrow("up", bool)
+
+    } else if (e.key === "ArrowDown") {
+        this.updateArrow("down", bool)
+
+    } else if (e.key === "ArrowLeft") {
+        this.updateArrow("left", bool)
+
+    } else if (e.key === "ArrowRight") {
+        this.updateArrow("right", bool)
+    }
   }
 
   checkForCollision = () => {
@@ -52,17 +68,42 @@ export default class Canvas extends Component {
   checkForWall = (wall, ballState) => {
     return (ballState.x + ballState.dirX > wall.x -25 &&
       ballState.x + ballState.dirX < wall.x +25 &&
-      ballState.y + ballState.dirY > wall.y -110 &&
-      ballState.y + ballState.dirY < wall.y +110)
+      ballState.y + ballState.dirY > wall.y - 10 &&
+      ballState.y + ballState.dirY < wall.y + 100)
   }
 
-drawWall = () => {
-  const c = document.getElementById("myCanvas")
-  const ctx = c.getContext("2d")
-    this.state.walls.forEach(wall => {
-      ctx.fillStyle = "#1a1d23"
-      ctx.fillRect(wall.x, wall.y, 5, 100)
-    })
+  // checkForWallForUser = (wall, ballState) => {
+  //   return (ballState.x + ballState.dirX > wall.x -15 &&
+  //     ballState.x + ballState.dirX < wall.x +15 &&
+  //     ballState.y + ballState.dirY > wall.y -100 &&
+  //     ballState.y + ballState.dirY < wall.y +100)
+  // }
+
+  selectWall = (newAr, wall) => {
+    return newAr.findIndex(obj => obj.x === wall.x)
+  }
+
+
+
+  draw = (canvas, ctx) => {
+    const ballRadius = 20
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      this.drawBall(ctx, ballRadius, "#0095DD", this.state.comp.x, this.state.comp.y)
+
+      if (this.state.comp.x + this.state.comp.dirX >  canvas.width-ballRadius || this.state.comp.x + this.state.comp.dirX < ballRadius || this.state.walls.some((wall) => this.checkForWall(wall, this.state.comp))
+    ) {
+
+        this.switchDirection("dirX")
+      }
+      if (this.state.comp.y + this.state.comp.dirY > canvas.height-ballRadius || this.state.comp.y + this.state.comp.dirY < ballRadius) {
+
+        this.switchDirection("dirY")
+
+        } else {
+          this.move()
+        }
   }
 
   drawBall = (ctx, ballRadius, color, x, y) => {
@@ -73,15 +114,47 @@ drawWall = () => {
       ctx.closePath()
   }
 
-  switchDirection = (dir) => {
-    this.setState(prevState => {
-      return {
-        comp: {
-          ...prevState.comp,
-          [dir]: -prevState.comp[dir] }
-        }
-      }, () => this.move()
-    )
+  drawUserBall = (canvas, ctx) => {
+    const ballRadius = 10
+
+    this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
+
+    if(this.state.arrow.up && this.state.userBall.y -2 > 0 + ballRadius) {
+      this.moveWallNow(this.moveWallY)
+      this.moveUserBall("y", -2, "dirY", "dirX")
+
+    } else if (this.state.arrow.down && this.state.userBall.y +2 < canvas.height - ballRadius) {
+      this.moveWallNow(this.moveWallY)
+      this.moveUserBall("y", 2, "dirY", "dirX")
+
+    }  else if (this.state.arrow.left && this.state.userBall.x -2 > 0 + ballRadius) {
+      this.moveWallNow(this.moveWallX)
+      this.moveUserBall("x", -2, "dirX", "dirY")
+
+    } else if (this.state.arrow.right && this.state.userBall.x +2 < canvas.width - ballRadius) {
+      this.moveWallNow(this.moveWallX)
+      this.moveUserBall("x", 2, "dirX", "dirY")
+    }
+
+
+  }
+
+wallPosition = () => {
+
+}
+drawWall = (c, ctx) => {
+    this.state.walls.forEach(wall => {
+      ctx.fillStyle = "#1a1d23"
+      ctx.fillRect(wall.x, wall.y, wall.width, wall.length)
+    })
+  }
+
+  handleKeyDown = (e) => {
+    this.changeArrowState(e, true)
+  }
+
+  handleKeyUp = (e) => {
+    this.changeArrowState(e, false)
   }
 
   move = () => {
@@ -95,60 +168,42 @@ drawWall = () => {
     }, () => this.checkForCollision())
   }
 
-  draw = (canvas, ctx) => {
-    const ballRadius = 20
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      this.drawBall(ctx, ballRadius, "#0095DD", this.state.comp.x, this.state.comp.y)
-
-      if (this.state.comp.x + this.state.comp.dirX >  canvas.width-ballRadius || this.state.comp.x + this.state.comp.dirX < ballRadius || this.state.walls.some((wall) => this.checkForWall(wall, this.state.comp))
-    ){
-
-        this.switchDirection("dirX")
-      }
-      if (this.state.comp.y + this.state.comp.dirY > canvas.height-ballRadius || this.state.comp.y + this.state.comp.dirY < ballRadius) {
-
-        this.switchDirection("dirY")
-
-        } else {
-          this.move()
-        }
+  checkArrowStatus() {
+    return (this.state.arrow.up || this.state.arrow.down || this.state.arrow.left || this.state.arrow.right)
   }
 
-
-  updateArrow = (dir, bool) => {
+  moveWall = (wall, buffer, xy, dir) => {
     this.setState(prevState => {
+      const newAr = [ ...prevState.walls ]
+      newAr[this.selectWall(newAr, wall)][xy] = this.state.userBall[xy] + this.state.userBall[dir] + buffer
+      // newAr[this.selectWall(newAr, wall)].y = this.state.userBall.y + this.state.userBall.dirY
       return {
-        arrow:
-        { ...prevState.arrow,
-          [dir]: bool }
+        walls: [ ...newAr ]
       }
     })
   }
-
-  changeArrowState = (e, bool) => {
-
-    if (e.key === "ArrowUp") {
-      this.updateArrow("up", bool)
-
-    } else if (e.key === "ArrowDown") {
-        this.updateArrow("down", bool)
-
-    } else if (e.key === "ArrowLeft") {
-        this.updateArrow("left", bool)
-
-    } else if (e.key === "ArrowRight") {
-        this.updateArrow("right", bool)
+  moveWallX = (wall) => {
+      if(this.state.userBall.x > wall.x) {
+        this.moveWall(wall, -20, "x", "dirX")
+      } else if (this.state.userBall.x < wall.x) {
+        this.moveWall(wall, 20, "x", "dirX")
+      }
     }
-  }
 
-  handleKeyDown = (e) => {
-    this.changeArrowState(e, true)
-  }
+    moveWallY = (wall) => {
+        if(this.state.userBall.y > wall.y ) {
+          this.moveWall(wall, -110, "y", "dirY")
+        } else if (this.state.userBall.y < wall.y) {
+          this.moveWall(wall, 10, "y", "dirY")
+        }
+      }
 
-  handleKeyUp = (e) => {
-    this.changeArrowState(e, false)
+  moveWallNow = (move) => {
+    this.state.walls.forEach(wall => {
+      if(this.checkForWall(wall, this.state.userBall)) {
+      move(wall)
+      }
+    })
   }
 
   moveUserBall = (xy, newDir, curDir, nullDir) => {
@@ -162,33 +217,33 @@ drawWall = () => {
           }
       }
     }, () => this.setState(prevState => {
-        console.log(this.state.userBall)
       return {
         userBall:
         { ...prevState.userBall,
           [xy]: prevState.userBall[xy] += prevState.userBall[curDir] }
         }
     }))
-
   }
 
-  drawUserBall = (canvas, ctx) => {
-    const ballRadius = 10
+  switchDirection = (dir) => {
+    this.setState(prevState => {
+      return {
+        comp: {
+          ...prevState.comp,
+          [dir]: -prevState.comp[dir] }
+        }
+      }, () => this.move()
+    )
+  }
 
-    this.drawBall(ctx, ballRadius, '#ebf442', this.state.userBall.x, this.state.userBall.y)
-
-    if(this.state.arrow.up && this.state.userBall.y -3 > 0 + ballRadius) {
-      this.moveUserBall("y", -3, "dirY", "dirX")
-
-    } else if (this.state.arrow.down && this.state.userBall.y +3 < canvas.height - ballRadius) {
-      this.moveUserBall("y", 3, "dirY", "dirX")
-
-    }  else if (this.state.arrow.left && this.state.userBall.x -3 > 0 + ballRadius) {
-      this.moveUserBall("x", -3, "dirX", "dirY")
-
-    } else if (this.state.arrow.right && this.state.userBall.x +3 < canvas.width - ballRadius) {
-      this.moveUserBall("x", 3, "dirX", "dirY")
-    }
+  updateArrow = (dir, bool) => {
+    this.setState(prevState => {
+      return {
+        arrow:
+        { ...prevState.arrow,
+          [dir]: bool }
+      }
+    })
   }
 
   componentDidMount(){
@@ -208,12 +263,9 @@ drawWall = () => {
           dirY: 3 }
       },
       () => {
-      setInterval(() => {
-      this.draw(canvas, ctx)}, 10)
-      setInterval(() => {
-      this.drawUserBall(canvas, ctx)}, 10)
-
-      setInterval(() => {this.drawWall()}, 10)
+      setInterval(() => { this.draw(canvas, ctx) }, 10)
+      setInterval(() => { this.drawUserBall(canvas, ctx) }, 10)
+      setInterval(() => { this.drawWall(canvas, ctx) }, 10)
     }
     )
   }
