@@ -66,10 +66,10 @@ export default class Canvas extends Component {
   }
 
   checkForWall = (wall, ballState) => {
-    return (ballState.x + ballState.dirX > wall.x -25 &&
-      ballState.x + ballState.dirX < wall.x +25 &&
-      ballState.y + ballState.dirY > wall.y - 10 &&
-      ballState.y + ballState.dirY < wall.y + 100)
+    return (ballState.x + ballState.dirX > wall.x - (wall.width + 10 ) && //-25
+      ballState.x + ballState.dirX < wall.x + (wall.width + 10) && //+ 25
+      ballState.y + ballState.dirY > wall.y - (wall.length + 10) && //- 10
+      ballState.y + ballState.dirY < wall.y + wall.length + 10) // +100
   }
 
   // checkForWallForUser = (wall, ballState) => {
