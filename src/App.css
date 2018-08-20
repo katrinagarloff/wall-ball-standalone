@@ -22,7 +22,22 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
+.App-footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: transparent;
+  color: black;
+  text-align: center;
+}
+
+.Score-board {
+  text-align: left;
+}
+
+/* @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+} */
+
+/* allows for the log to spin */
