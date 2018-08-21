@@ -4,10 +4,10 @@ import UserBall from './UserBall'
 export default class Canvas extends Component {
   state = {
     comp:
-    { x: 0,
+    [{x: 0,
       y: 0,
       dirX: 0,
-      dirY: 0 },
+      dirY: 0 }],
     userBall:
     { x: 0,
       y: 0,
@@ -19,10 +19,12 @@ export default class Canvas extends Component {
       left: false,
       right: false
     },
-    walls: [{x: 500, y: 100, width: 10, height: 100},
+    walls: [ {x: 500, y: 100, width: 10, height: 100},
       {x: 100, y: 600, width: 10, height: 100},
       {x: 500, y: 400, width: 10, height: 100},
-      {x: 200, y: 100, width: 100, height: 10}],
+      {x: 200, y: 100, width: 100, height: 10},
+      {x: 300, y: 200, width: 100, height: 10},
+      {x: 400, y: 300, width: 100, height: 10}, ],
     ballCollision: false,
     timer: 0
 
@@ -104,6 +106,8 @@ export default class Canvas extends Component {
       ballState.y + ballState.dirY < wall.y + (wall.height + 10)) // +100
   }
 
+
+
   checkForWallType = (wall, comp) => {
     // if wall width is === 5 return true -- if its vert then change dirX
     if (wall.width > wall.height) {
@@ -122,7 +126,9 @@ export default class Canvas extends Component {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    this.drawBall(ctx, ballRadius, "#0095DD", x, y)
+      this.drawBall(ctx, ballRadius, "#0095DD", comp.x, comp.y)
+    
+
 
     // checking for collisions on outside walls
     if (x + dirX > canvas.width-ballRadius || x + dirX < ballRadius){
@@ -145,6 +151,11 @@ export default class Canvas extends Component {
       ctx.fillStyle = color
       ctx.fill()
       ctx.closePath()
+  }
+
+  checkWallBufferY(wall, dir) {
+    const canvas = document.getElementById("myCanvas")
+    return (wall.y -10 > 0 + 10 && wall.y + 10 < canvas.height)
   }
 
   drawUserBall = (canvas, ctx) => {
@@ -203,6 +214,7 @@ drawWall = (c, ctx) => {
 
 
   moveWall = (wall, buffer, xy, dir) => {
+
     this.setState(prevState => {
       const newAr = [ ...prevState.walls ]
       newAr[this.selectWall(newAr, wall)][xy] = newAr[this.selectWall(newAr, wall)][xy] + dir + buffer
@@ -211,27 +223,43 @@ drawWall = (c, ctx) => {
       }
     })
   }
+
+
   moveWallX = (wall, dir) => {
+    const canvas = document.getElementById("myCanvas")
       if(this.state.userBall.x > wall.x) {
-        this.moveWall(wall, -10, "x", dir)
+        if(wall.x -15 > 0 + 10) {
+          this.moveWall(wall, -10, "x", dir)
+        }
       } else if (this.state.userBall.x < wall.x) {
-        this.moveWall(wall, 10, "x", dir)
+        if(wall.x + wall.width < canvas.width -15) {
+          this.moveWall(wall, 10, "x", dir)
+        }
       }
     }
 
     moveWallY = (wall, dir) => {
+      const canvas = document.getElementById("myCanvas")
+
         if(this.state.userBall.y > wall.y ) {
+          if(wall.y -20 > 10) {
           this.moveWall(wall, -10, "y", dir)
+        }
         } else if (this.state.userBall.y < wall.y) {
+          if(wall.y + wall.height < canvas.height - 20){
           this.moveWall(wall, 10, "y", dir)
+          }
         }
       }
+
+
+
 
   moveWallNow = (move, dir) => {
     this.state.walls.forEach(wall => {
       if (this.checkForWall(wall, this.state.userBall)) {
         move(wall, dir)
-      }
+    }
     })
   }
 
@@ -287,7 +315,7 @@ drawWall = (c, ctx) => {
     return (
       <div>
          <canvas id="myCanvas"
-           width={800} height={800}
+           width={900} height={900}
            onKeyDown={this.handleKeyDown}
            onKeyUp={this.handleKeyUp}
            tabIndex="0">
