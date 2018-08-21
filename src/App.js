@@ -14,10 +14,10 @@ class App extends Component {
     scores:[]
   }
 
-  componentDidMount() {
-    this.getPlayers()
-    this.getScores()
-  }
+  // componentDidMount() {
+  //   this.getPlayers()
+  //   this.getScores()
+  // }
   //getPlayers will return an array of objects
   //push the objecting into state of players
   getPlayers(){
@@ -53,7 +53,7 @@ filterData() {
     // console.log(this.state);
     return (
       <div className="App">
-        <Header logo={logo}/>
+      { /* <Header logo={logo}/> */}
         {this.filterData()}
         <Canvas />
         <Footer />
