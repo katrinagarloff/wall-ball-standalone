@@ -1,4 +1,3 @@
 class Score < ApplicationRecord
-  has_many :rounds
-  has_many :players, through: :rounds
+  belongs_to :player
 end

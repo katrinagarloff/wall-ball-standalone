@@ -1,4 +1,4 @@
 class PlayerSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :score
 
 end
