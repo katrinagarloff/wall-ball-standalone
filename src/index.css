@@ -6,4 +6,6 @@ body {
 
  /* { padding: 0; margin: 0; }  */
 
- canvas { background: #5673a0; display: block; margin: 0 auto; }
+ canvas {background-image: url(./images/concrete.jpeg); background-size: cover; background-repeat: no-repeat; }
+/* background: #5673a0; */
+/* 'https://images.unsplash.com/photo-1521798903226-9c2e199e3c74?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0e256e7f88dbed75c38ae0c96d4e74f5&auto=format&fit=crop&w=882&q=80' */

@@ -13,19 +13,26 @@ export default class Canvas extends Component {
       y: 0,
       dirX: 0,
       dirY: 0 },
+    goal: {
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0
+      },
     arrow:
     { up: false,
       down: false,
       left: false,
       right: false
     },
-    walls: [ {x: 500, y: 100, width: 10, height: 100},
-      {x: 100, y: 600, width: 10, height: 100},
-      {x: 500, y: 400, width: 10, height: 100},
-      {x: 200, y: 100, width: 100, height: 10},
-      {x: 300, y: 200, width: 100, height: 10},
-      {x: 400, y: 300, width: 100, height: 10}, ],
+    walls: [ {x: 500, y: 100, width: 10, height: 150},
+      {x: 100, y: 600, width: 10, height: 150},
+      {x: 500, y: 400, width: 10, height: 150},
+      {x: 200, y: 100, width: 150, height: 10},
+      {x: 300, y: 200, width: 150, height: 10},
+      {x: 400, y: 300, width: 150, height: 10}, ],
     ballCollision: false,
+    goalCollision: false,
     timer: 0
 
   }
@@ -44,14 +51,32 @@ export default class Canvas extends Component {
         { x: canvas.width/3,
           y:canvas.height-20,
           dirX: 3,
-          dirY: 3 }
-      },
+          dirY: 3 },
+      goal: {
+        x: canvas.width/2,
+        y: canvas.height/2,
+        width: 100,
+        height: 100
+      }
+    },
       () => {
       setInterval(() => { this.draw(canvas, ctx) }, 10)
       setInterval(() => { this.drawUserBall(canvas, ctx) }, 10)
-      setInterval(() => { this.drawWall(canvas, ctx) }, 10)
+
     }
     )
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const canvas = document.getElementById("myCanvas")
+    const ctx = canvas.getContext("2d")
+    // const ballRadius = 10
+    // const { x, y } = this.state.userBall
+    // // this.draw(canvas, ctx)
+    // prevState.arrow !== this.state.arrow ? this.drawUserBall(canvas, ctx) : this.drawBall(ctx, ballRadius, '#ebf442', x, y)
+    this.drawGoal(canvas, ctx)
+    this.drawWall(canvas, ctx)
+
   }
 
   changeArrowState = (e, bool) => {
@@ -126,8 +151,8 @@ export default class Canvas extends Component {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      this.drawBall(ctx, ballRadius, "#0095DD", comp.x, comp.y)
-    
+    this.drawBall(ctx, ballRadius, "#0095DD", comp.x, comp.y)
+
 
 
     // checking for collisions on outside walls
@@ -141,8 +166,17 @@ export default class Canvas extends Component {
         this.checkForWallType(wall, comp)
       }
     })
+      if (this.checkForGoal(this.state.comp, this.state.goal)) {
+      }
 
     this.move()
+  }
+
+  checkForGoal = (ballState, goal) => {
+    return !!(ballState.x + ballState.dirX > goal.x - 10 && //-25
+      ballState.x + ballState.dirX < goal.x + (goal.width + 10) && //+ 25
+      ballState.y + ballState.dirY > goal.y - 10 && //- 10
+      ballState.y + ballState.dirY < goal.y + (goal.height + 10))
   }
 
   drawBall = (ctx, ballRadius, color, x, y) => {
@@ -191,6 +225,12 @@ drawWall = (c, ctx) => {
       ctx.fillStyle = "#1a1d23"
       ctx.fillRect(wall.x, wall.y, wall.width, wall.height)
     })
+  }
+
+  drawGoal = (c, ctx) => {
+    const { goal } = this.state
+    ctx.fillStyle = "#f45c42"
+    ctx.fillRect(goal.x, goal.y, goal.width, goal.height)
   }
 
   handleKeyDown = (e) => {
@@ -252,9 +292,6 @@ drawWall = (c, ctx) => {
         }
       }
 
-
-
-
   moveWallNow = (move, dir) => {
     this.state.walls.forEach(wall => {
       if (this.checkForWall(wall, this.state.userBall)) {
@@ -312,14 +349,16 @@ drawWall = (c, ctx) => {
   render() {
     const {width, height} = this.props
 
+
     return (
       <div>
          <canvas id="myCanvas"
-           width={900} height={900}
+           width={800} height={800}
            onKeyDown={this.handleKeyDown}
            onKeyUp={this.handleKeyUp}
            tabIndex="0">
          </canvas>
+
       </div>
     )
   }
