@@ -10,26 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_16_201526) do
+ActiveRecord::Schema.define(version: 2018_08_22_132756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "players", force: :cascade do |t|
     t.string "name"
-  end
-
-  create_table "rounds", force: :cascade do |t|
-    t.bigint "player_id"
-    t.bigint "score_id"
-    t.index ["player_id"], name: "index_rounds_on_player_id"
-    t.index ["score_id"], name: "index_rounds_on_score_id"
+    t.integer "score"
   end
 
   create_table "scores", force: :cascade do |t|
     t.integer "time"
   end
 
-  add_foreign_key "rounds", "players"
-  add_foreign_key "rounds", "scores"
 end
