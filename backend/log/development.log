@@ -34439,3 +34439,772 @@ Processing by Api::V1::PlayersController#login as */*
 Completed 200 OK in 4ms (Views: 0.5ms | ActiveRecord: 1.0ms)
 
 
+  [1m[35m (540.4ms)[0m  [1m[35mCREATE DATABASE "Wall_Ball_development" ENCODING = 'unicode'[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (499.6ms)[0m  [1m[35mCREATE DATABASE "Wall_Ball_test" ENCODING = 'unicode'[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (49.9ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (25.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (4.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5672000685820902720)[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+Migrating to CreatePlayer (20180816182016)
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (36.1ms)[0m  [1m[35mCREATE TABLE "players" ("id" bigserial primary key, "name" character varying, "score" integer)[0m
+  ↳ db/migrate/20180816182016_create_player.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (5.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20180816182016"]]
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+Migrating to AddScoreToPlayer (20180822132756)
+  [1m[35m (6.0ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (22.2ms)[0m  [1m[35mALTER TABLE "players" ADD "score" integer[0m
+  ↳ db/migrate/20180822132756_add_score_to_player.rb:3
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(5672000685820902720)[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5672000685820902720)[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[36mActiveRecord::InternalMetadata Create (13.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-08-22 19:52:38.055557"], ["updated_at", "2018-08-22 19:52:38.055557"]]
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5672000685820902720)[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/bin/rake:23
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 15:53:41 -0400
+  [1m[35m (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/flatironschool/.rvm/gems/ruby-2.3.3/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"name"=>"katrina ", "player"=>{"name"=>"katrina "}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[36mPlayer Create (1.2ms)[0m  [1m[32mINSERT INTO "players" ("name") VALUES ($1) RETURNING "id"[0m  [["name", "katrina "]]
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+[active_model_serializers] Rendered PlayerSerializer with ActiveModelSerializers::Adapter::JsonApi (9.73ms)
+Completed 200 OK in 65ms (Views: 43.1ms | ActiveRecord: 24.9ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 15:53:51 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 34ms (Views: 12.6ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 15:53:55 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"Katrina", "player"=>{"name"=>"Katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "Katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 15:53:57 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"Katrina", "player"=>{"name"=>"Katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "Katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 15:53:57 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"Katrina", "player"=>{"name"=>"Katrina"}}
+  [1m[36mPlayer Load (0.8ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "Katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 15:53:57 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"Katrina", "player"=>{"name"=>"Katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "Katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 200 OK in 3ms (Views: 0.9ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 15:54:09 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[36mPlayer Create (0.5ms)[0m  [1m[32mINSERT INTO "players" ("name") VALUES ($1) RETURNING "id"[0m  [["name", "katrina"]]
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+[active_model_serializers] Rendered PlayerSerializer with ActiveModelSerializers::Adapter::JsonApi (0.75ms)
+Completed 200 OK in 8ms (Views: 1.7ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:01:15 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"player"=>{}}
+  [1m[36mPlayer Load (0.7ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:01:19 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"name"=>"", "player"=>{"name"=>""}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[36mPlayer Create (1.3ms)[0m  [1m[32mINSERT INTO "players" ("name") VALUES ($1) RETURNING "id"[0m  [["name", ""]]
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+[active_model_serializers] Rendered PlayerSerializer with ActiveModelSerializers::Adapter::JsonApi (0.66ms)
+Completed 200 OK in 8ms (Views: 1.3ms | ActiveRecord: 3.9ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:01:26 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"player"=>{}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:05:46 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"player"=>{}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: player):
+  
+app/controllers/api/v1/players_controller.rb:32:in `player_params'
+app/controllers/api/v1/players_controller.rb:10:in `create'
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:05:48 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"player"=>{}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.14ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:07:29 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"player"=>{}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:07:34 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"player"=>{}}
+Completed 400 Bad Request in 1ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: player):
+  
+app/controllers/api/v1/players_controller.rb:32:in `player_params'
+app/controllers/api/v1/players_controller.rb:10:in `create'
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:07:36 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"player"=>{}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" IS NULL LIMIT $1[0m  [["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:11:47 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"player"=>{}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: player):
+  
+app/controllers/api/v1/players_controller.rb:32:in `player_params'
+app/controllers/api/v1/players_controller.rb:10:in `create'
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:14:06 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"player"=>{}}
+Completed 400 Bad Request in 0ms (ActiveRecord: 0.0ms)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: player):
+  
+app/controllers/api/v1/players_controller.rb:32:in `player_params'
+app/controllers/api/v1/players_controller.rb:10:in `create'
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:16:45 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[36mPlayer Create (0.4ms)[0m  [1m[32mINSERT INTO "players" ("name") VALUES ($1) RETURNING "id"[0m  [["name", "katrina"]]
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+[active_model_serializers] Rendered PlayerSerializer with ActiveModelSerializers::Adapter::JsonApi (0.53ms)
+Completed 200 OK in 6ms (Views: 1.1ms | ActiveRecord: 2.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:16:49 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 19ms (Views: 0.7ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:20:24 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:20:27 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:21:35 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/signup" for 127.0.0.1 at 2018-08-22 16:22:03 -0400
+Processing by Api::V1::PlayersController#create as */*
+  Parameters: {"name"=>"joe", "player"=>{"name"=>"joe"}}
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[36mPlayer Create (0.5ms)[0m  [1m[32mINSERT INTO "players" ("name") VALUES ($1) RETURNING "id"[0m  [["name", "joe"]]
+  ↳ app/controllers/api/v1/players_controller.rb:11
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/players_controller.rb:11
+[active_model_serializers] Rendered PlayerSerializer with ActiveModelSerializers::Adapter::JsonApi (0.53ms)
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 3.0ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:22:23 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"elmo", "player"=>{"name"=>"elmo"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "elmo"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:22:32 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:34:32 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (1.1ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:39:26 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:41:23 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:42:17 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.7ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 3ms (Views: 0.7ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:43:05 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:43:14 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:43:36 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.9ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.22ms)
+Completed 200 OK in 4ms (Views: 1.2ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:43:53 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:44:07 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:45:07 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:46:54 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:47:13 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.7ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:48:01 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:48:43 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:49:44 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.8ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.8ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:49:57 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:50:23 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:50:43 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:51:06 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:51:42 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:52:07 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:52:21 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.14ms)
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:53:02 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:53:36 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:56:11 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:56:26 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:56:37 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:56:48 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.07ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:56:57 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:57:11 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.7ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.15ms)
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:58:25 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:58:49 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:58:58 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:59:09 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 16:59:49 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:00:18 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:00:28 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:00:55 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:01:52 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:02:16 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:02:25 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 1ms (Views: 0.4ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:02:44 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:03:40 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 200 OK in 2ms (Views: 0.7ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:04:01 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.09ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:05:00 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:05:38 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:07:02 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.4ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.06ms)
+Completed 200 OK in 2ms (Views: 0.4ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:07:29 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:07:43 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:08:06 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.08ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:09:12 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (1.0ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.2ms)
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-22 17:09:51 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (0.5ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.5ms)
+
+

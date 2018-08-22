@@ -25,12 +25,13 @@ export default class Canvas extends Component {
       left: false,
       right: false
     },
-    walls: [ {x: 500, y: 100, width: 10, height: 150},
-      {x: 100, y: 600, width: 10, height: 150},
-      {x: 500, y: 400, width: 10, height: 150},
-      {x: 200, y: 100, width: 150, height: 10},
-      {x: 300, y: 200, width: 150, height: 10},
-      {x: 400, y: 300, width: 150, height: 10}, ],
+    walls: [ {x: 200, y: 650, width: 10, height: 150},
+      {x: 350, y: 650, width: 10, height: 150},
+      {x: 500, y: 350, width: 10, height: 150},
+      {x: 350, y: 350, width: 10, height: 150},
+      {x: 350, y: 350, width: 150, height: 10},
+      {x: 350, y: 500, width: 150, height: 10},
+      {x: 200, y: 650, width: 150, height: 10}, ],
     ballCollision: false,
     goalCollision: false,
     timer: 0
@@ -40,11 +41,11 @@ export default class Canvas extends Component {
   componentDidMount(){
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
-
+    console.log(canvas.height)
     this.setState({
         comp:
-        { x: canvas.width/2,
-          y: canvas.height-30,
+        { x: 200,
+          y: 300,
           dirX: 3,
           dirY: -3 },
         userBall:
@@ -55,8 +56,8 @@ export default class Canvas extends Component {
       goal: {
         x: canvas.width/2,
         y: canvas.height/2,
-        width: 100,
-        height: 100
+        width: 30,
+        height: 30
       }
     },
       () => {
@@ -105,21 +106,22 @@ export default class Canvas extends Component {
       && this.state.userBall.x < this.state.comp.x+25
       && this.state.userBall.y > this.state.comp.y-25
       && this.state.userBall.y < this.state.comp.y+25 ) {
-      this.setState(
-         {
-           ballCollision: true,
-           comp:
-              { x: 0,
-                y: 0,
-                dirX: 0,
-                dirY: 0 },
-            userBall:
-              { x: 0,
-                y: 0,
-                dirX: 0,
-                dirY: 0 }
-            }
-      )
+        this.props.loseGame()
+      // this.setState(
+      //    {
+      //      ballCollision: true,
+      //      comp:
+      //         { x: 0,
+      //           y: 0,
+      //           dirX: 0,
+      //           dirY: 0 },
+      //       userBall:
+      //         { x: 0,
+      //           y: 0,
+      //           dirX: 0,
+      //           dirY: 0 }
+      //       }
+      // )
     }
   }
 
@@ -167,6 +169,7 @@ export default class Canvas extends Component {
       }
     })
       if (this.checkForGoal(this.state.comp, this.state.goal)) {
+        this.props.winGame()
       }
 
     this.move()
