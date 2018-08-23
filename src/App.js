@@ -7,9 +7,9 @@ import logo from './logo.svg';
 import Footer from './component/Footer';
 import CreatePlayer from './component/CreatePlayer';
 
+
 class App extends Component {
   state = {
-    players:[],
     scores:[],
     user : '',
     error: '',
@@ -115,8 +115,10 @@ class App extends Component {
   }
 
   render() {
+
     return (
       <div className="App">
+
         {(this.state.user.length === 0 && !this.state.lose) ?
           <CreatePlayer
             inputPlayer={this.inputPlayer}
@@ -132,7 +134,7 @@ class App extends Component {
               winGame={this.winGame}
               wins={this.state.wins}/>
           : (this.state.lose) ?
-            <ScoreBoard score={this.state.wins}/> : null}
+            <ScoreBoard score={this.state.wins} player={this.state.user}/> : null}
       </div>
     )
   }

@@ -1,3 +1,21 @@
+body {
+  background-image: url(https://orig00.deviantart.net/abb6/f/2015/298/3/3/in_space_vortex_by_kpekep-d9eay0l.gif);
+  background-size: cover;
+}
+
+h1 {
+  color: white;
+}
+
+label {
+  font-size: 3em;
+  color: white;
+}
+button {
+  width: 150px;
+  height: 40px;
+}
+
 .App {
   text-align: center;
 }
@@ -34,6 +52,28 @@
 .Score-board {
   text-align: left;
 }
+
+.text-box {
+  width: 1000px;
+  height: 34.5px;
+}
+
+.table {
+  font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  color: white;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
 
 /* @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

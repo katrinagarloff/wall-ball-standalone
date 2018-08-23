@@ -15,7 +15,7 @@ updateTextValue = (e) => {
           <h3 style={ {color: this.props.isError ? 'red' : 'green'} }> { this.props.error } </h3>
           <label>
             Name:
-            <input value={ this.state.textValue } onChange={ (e) => this.updateTextValue(e) } type="text" name="name"/>
+            <input className="text-box" value={ this.state.textValue } onChange={ (e) => this.updateTextValue(e) } type="text" name="name"/>
           </label>
           <button onClick={ () => this.props.login(this.state.textValue) }>
             Login
