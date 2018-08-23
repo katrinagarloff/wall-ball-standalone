@@ -14,7 +14,7 @@ class App extends Component {
     user : '',
     error: '',
     lose: false,
-    win: false
+    wins: 0
   }
 
   inputPlayer = (event) => {
@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   winGame = () => {
-    this.setState({win: true})
+    this.setState(prevState => {{win: prevState.win += 1}})
   }
 
   loseGame = () => {
@@ -129,8 +129,8 @@ class App extends Component {
             <Canvas
               loseGame={this.loseGame}
               winGame={this.winGame}/>
-          : (this.state.lose || this.state.win) ?
-            <ScoreBoard /> : null}
+          : (this.state.lose) ?
+            <ScoreBoard score={this.state.wins}/> : null}
       </div>
     )
   }

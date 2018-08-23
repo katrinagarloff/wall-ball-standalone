@@ -38,7 +38,7 @@ export default class Canvas extends Component {
 
   }
 
-  componentDidMount(){
+  startGame(){
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
     console.log(canvas.height)
@@ -66,6 +66,10 @@ export default class Canvas extends Component {
 
     }
     )
+  }
+
+  componentDidMount(){
+    this.startGame()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -107,21 +111,7 @@ export default class Canvas extends Component {
       && this.state.userBall.y > this.state.comp.y-25
       && this.state.userBall.y < this.state.comp.y+25 ) {
         this.props.loseGame()
-      // this.setState(
-      //    {
-      //      ballCollision: true,
-      //      comp:
-      //         { x: 0,
-      //           y: 0,
-      //           dirX: 0,
-      //           dirY: 0 },
-      //       userBall:
-      //         { x: 0,
-      //           y: 0,
-      //           dirX: 0,
-      //           dirY: 0 }
-      //       }
-      // )
+
     }
   }
 
@@ -169,7 +159,7 @@ export default class Canvas extends Component {
       }
     })
       if (this.checkForGoal(this.state.comp, this.state.goal)) {
-        this.props.winGame()
+        this.startGame()
       }
 
     this.move()
