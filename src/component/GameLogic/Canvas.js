@@ -40,7 +40,7 @@ export default class Canvas extends Component {
   }
 
   setWalls = (newWalls) => {
-    this.setState(() => {return {walls: newWalls}}, () => console.log(this.state))
+    this.setState(() => {return {walls: newWalls}})
   }
 
   getRandomInt = (min, max) => {
