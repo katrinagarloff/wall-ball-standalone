@@ -25,23 +25,50 @@ export default class Canvas extends Component {
       left: false,
       right: false
     },
-    walls: [ {x: 200, y: 650, width: 10, height: 150},
-      {x: 350, y: 650, width: 10, height: 150},
-      {x: 500, y: 350, width: 10, height: 150},
-      {x: 350, y: 350, width: 10, height: 150},
-      {x: 350, y: 350, width: 150, height: 10},
-      {x: 350, y: 500, width: 150, height: 10},
-      {x: 200, y: 650, width: 150, height: 10}, ],
+    walls: [],
+    // [ {x: 200, y: 650, width: 10, height: 150},
+    //   {x: 350, y: 650, width: 10, height: 150},
+    //   {x: 500, y: 350, width: 10, height: 150},
+    //   {x: 350, y: 350, width: 10, height: 150},
+    //   {x: 350, y: 350, width: 150, height: 10},
+    //   {x: 350, y: 500, width: 150, height: 10},
+    //   {x: 200, y: 650, width: 150, height: 10}, ],
     ballCollision: false,
     goalCollision: false,
     timer: 0
 
   }
 
+  setWalls = (newWalls) => {
+    this.setState(() => {return {walls: newWalls}}, () => console.log(this.state))
+  }
+
+  getRandomInt = (min, max) => {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min //The maximum is exclusive and the minimum is inclusive
+}
+  randomizeWalls = () => {
+    let newAr = []
+    this.getRandomInt(20, 750)
+    for(let i=0; i<4; i++) {
+      newAr.push({x: this.getRandomInt(20, 750), y: this.getRandomInt(20, 750), width: 150, height: 10})
+    }
+    for(let i=0; i<4; i++) {
+      newAr.push({x: this.getRandomInt(20, 750), y: this.getRandomInt(20, 750), width: 10, height: 150})
+    }
+    return newAr
+  }
+
+  setIntervals = () => {
+    const canvas = document.getElementById("myCanvas")
+    const ctx = canvas.getContext("2d")
+    const compInterval = setInterval(() => { this.draw(canvas, ctx) }, 10)
+    const userInterval = setInterval(() => { this.drawUserBall(canvas, ctx) }, 10)
+  }
   startGame(){
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
-    console.log(canvas.height)
     this.setState({
         comp:
         { x: 200,
@@ -59,26 +86,19 @@ export default class Canvas extends Component {
         width: 30,
         height: 30
       }
-    },
-      () => {
-      setInterval(() => { this.draw(canvas, ctx) }, 10)
-      setInterval(() => { this.drawUserBall(canvas, ctx) }, 10)
-
-    }
-    )
+    })
   }
 
   componentDidMount(){
+    this.setWalls(this.randomizeWalls())
     this.startGame()
+    this.setIntervals()
   }
 
   componentDidUpdate(prevProps, prevState) {
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
-    // const ballRadius = 10
-    // const { x, y } = this.state.userBall
-    // // this.draw(canvas, ctx)
-    // prevState.arrow !== this.state.arrow ? this.drawUserBall(canvas, ctx) : this.drawBall(ctx, ballRadius, '#ebf442', x, y)
+
     this.drawGoal(canvas, ctx)
     this.drawWall(canvas, ctx)
 
@@ -100,10 +120,6 @@ export default class Canvas extends Component {
     }
   }
 
-  // checkArrowStatus() {
-  //   return (this.state.arrow.up || this.state.arrow.down || this.state.arrow.left || this.state.arrow.right)
-  // }
-
   checkForCollision = () => {
     if (this.state.userBall !== 0
       && this.state.userBall.x > this.state.comp.x-25
@@ -111,7 +127,6 @@ export default class Canvas extends Component {
       && this.state.userBall.y > this.state.comp.y-25
       && this.state.userBall.y < this.state.comp.y+25 ) {
         this.props.loseGame()
-
     }
   }
 
@@ -145,8 +160,6 @@ export default class Canvas extends Component {
 
     this.drawBall(ctx, ballRadius, "#0095DD", comp.x, comp.y)
 
-
-
     // checking for collisions on outside walls
     if (x + dirX > canvas.width-ballRadius || x + dirX < ballRadius){
       this.switchDirection("dirX")
@@ -159,9 +172,9 @@ export default class Canvas extends Component {
       }
     })
       if (this.checkForGoal(this.state.comp, this.state.goal)) {
+        this.props.winGame()
         this.startGame()
       }
-
     this.move()
   }
 

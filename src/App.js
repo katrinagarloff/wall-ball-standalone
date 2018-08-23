@@ -24,7 +24,8 @@ class App extends Component {
   }
 
   winGame = () => {
-    this.setState(prevState => {{win: prevState.win += 1}})
+    this.setState(prevState => {{win: prevState.wins += 1}})
+
   }
 
   loseGame = () => {
@@ -116,16 +117,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          {(this.state.user.length === 0 && !this.state.lose && !this.state.win) ?
-            <CreatePlayer
-              inputPlayer={this.inputPlayer}
-              login={this.login}
-              signUp={this.signUp}
-              user={this.state.user}
-              error={this.state.error}
-              isError={this.state.isError}
-              gameOn={this.state.gameOn}/>
-          : (this.state.user.length > 0 && !this.state.lose && !this.state.win) ?
+        {!this.state.lose ?
             <Canvas
               loseGame={this.loseGame}
               winGame={this.winGame}/>
@@ -135,6 +127,19 @@ class App extends Component {
     )
   }
 }
+// {(this.state.user.length === 0 && !this.state.lose) ?
+//   <CreatePlayer
+//     inputPlayer={this.inputPlayer}
+//     login={this.login}
+//     signUp={this.signUp}
+//     user={this.state.user}
+//     error={this.state.error}
+//     isError={this.state.isError}
+//     gameOn={this.state.gameOn}/>
+// : (this.state.user.length > 0 && !this.state.lose && !this.state.win) ?
+
+
+
 
 // <ScoreBoard />
 // <Header logo={logo}/>
