@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import UserBall from './UserBall'
 
 export default class Canvas extends Component {
   state = {
@@ -26,13 +25,6 @@ export default class Canvas extends Component {
       right: false
     },
     walls: [],
-    // [ {x: 200, y: 650, width: 10, height: 150},
-    //   {x: 350, y: 650, width: 10, height: 150},
-    //   {x: 500, y: 350, width: 10, height: 150},
-    //   {x: 350, y: 350, width: 10, height: 150},
-    //   {x: 350, y: 350, width: 150, height: 10},
-    //   {x: 350, y: 500, width: 150, height: 10},
-    //   {x: 200, y: 650, width: 150, height: 10}, ],
     ballCollision: false,
     goalCollision: false,
     timer: 0
@@ -40,7 +32,7 @@ export default class Canvas extends Component {
   }
 
   setWalls = (newWalls) => {
-    this.setState(() => {return {walls: newWalls}}, () => console.log(this.state))
+    this.setState({walls: newWalls})
   }
 
   getRandomInt = (min, max) => {
@@ -69,8 +61,8 @@ export default class Canvas extends Component {
   startGame(){
     const canvas = document.getElementById("myCanvas")
     const ctx = canvas.getContext("2d")
-    this.setState({
-        comp:
+    this.setState((prevState) => {
+      return {comp:
         { x: 200,
           y: 300,
           dirX: 3,
@@ -83,9 +75,10 @@ export default class Canvas extends Component {
       goal: {
         x: canvas.width/2,
         y: canvas.height/2,
-        width: 30,
-        height: 30
+        width: 40,
+        height: 40
       }
+    }
     })
   }
 
@@ -173,6 +166,7 @@ export default class Canvas extends Component {
     })
       if (this.checkForGoal(this.state.comp, this.state.goal)) {
         this.props.winGame()
+        this.setWalls(this.randomizeWalls())
         this.startGame()
       }
     this.move()
@@ -203,7 +197,7 @@ export default class Canvas extends Component {
     const { x, y } = this.state.userBall
     const { up, down, left, right } = this.state.arrow
 
-    this.drawBall(ctx, ballRadius, '#ebf442', x, y)
+    this.drawBall(ctx, ballRadius, '#7b48db', x, y)
 
     if (up && y -2 > 0 + ballRadius) {
       this.moveWallNow(this.moveWallY, -2)
@@ -353,8 +347,6 @@ drawWall = (c, ctx) => {
 
 
   render() {
-    const {width, height} = this.props
-
 
     return (
       <div>
@@ -364,7 +356,7 @@ drawWall = (c, ctx) => {
            onKeyUp={this.handleKeyUp}
            tabIndex="0">
          </canvas>
-
+         <h1>Wins: {this.props.wins} </h1>
       </div>
     )
   }

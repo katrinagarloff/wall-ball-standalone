@@ -35293,3 +35293,21 @@ Processing by Api::V1::PlayersController#login as */*
 Completed 200 OK in 6ms (Views: 1.4ms | ActiveRecord: 0.8ms)
 
 
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-23 11:21:15 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (2.6ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.17ms)
+Completed 200 OK in 6ms (Views: 1.1ms | ActiveRecord: 2.6ms)
+
+
+Started POST "/api/v1/login" for 127.0.0.1 at 2018-08-23 13:30:58 -0400
+Processing by Api::V1::PlayersController#login as */*
+  Parameters: {"name"=>"katrina", "player"=>{"name"=>"katrina"}}
+  [1m[36mPlayer Load (1.1ms)[0m  [1m[34mSELECT  "players".* FROM "players" WHERE "players"."name" = $1 LIMIT $2[0m  [["name", "katrina"], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/players_controller.rb:20
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 1.1ms)
+
+
