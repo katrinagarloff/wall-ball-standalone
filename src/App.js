@@ -86,6 +86,26 @@ class App extends Component {
    })
  }
 
+  //getPlayers will return an array of objects
+  //push the objecting into state of players
+  // getPlayers(){
+  //   fetch('http://localhost:3000/api/v1/players')
+  //     .then(res => res.json())
+  //     .then(players => {
+  //       this.setState({players:players})
+  //     })
+  // }
+  // //get players name
+  //
+  // getScores = () => {
+  //    fetch('http://localhost:3000/api/v1/scores')
+  //     .then(res => res.json())
+  //     .then(scores => {
+  //
+  //       this.setState({scores:scores})
+  //     })
+  // }
+// passes only if not zero
   filterData() {
     if (this.state.players.length !== 0 && this.state.scores.length !==0) {
       return <ScoreBoard data={this.state} />
@@ -99,12 +119,22 @@ class App extends Component {
     return (
       <div className="App">
 
-        {!this.state.lose ?
+        {(this.state.user.length === 0 && !this.state.lose) ?
+          <CreatePlayer
+            inputPlayer={this.inputPlayer}
+            login={this.login}
+            signUp={this.signUp}
+            user={this.state.user}
+            error={this.state.error}
+            isError={this.state.isError}
+            gameOn={this.state.gameOn}/>
+        : (this.state.user.length > 0 && !this.state.lose) ?
             <Canvas
               loseGame={this.loseGame}
               winGame={this.winGame}
               wins={this.state.wins}/>
-          : <ScoreBoard score={this.state.wins} />}
+          : (this.state.lose) ?
+            <ScoreBoard score={this.state.wins} player={this.state.user}/> : null}
       </div>
     )
   }

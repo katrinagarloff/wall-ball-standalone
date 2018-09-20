@@ -4,15 +4,25 @@ import React from 'react';
 
 const ScoreBoard = (props) => {
 
-
+  console.log(props);
 
   return (
-    <div className='concrete'>
-      <div className='white-div'>
+    <div>
+      <h1>ScoreBoard</h1>
+        <div className="Score-board" >
+          <table className="table">
+            <tr>
+              <th>Player</th>
+              <th>Score</th>
+            </tr>
+            <tr>
+              <td>{props.player}</td>
+              <td>{props.score}</td>
+            </tr>
+          </table>
 
-        <h1>GAME OVER</h1>
-        <h2>You won {props.score} times! </h2>
-      </div>
+
+        </div>
     </div>
   )
 }
