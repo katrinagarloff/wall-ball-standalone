@@ -1,10 +1,25 @@
 body {
-  background-image: url(https://orig00.deviantart.net/abb6/f/2015/298/3/3/in_space_vortex_by_kpekep-d9eay0l.gif);
-  background-size: cover;
+
 }
 
 h1 {
-  color: white;
+
+}
+
+.concrete {
+  background-image: url('./images/concrete.jpeg');
+  padding: 200px;
+  margin: auto;
+  width: 800px;
+  height: 800px;
+}
+
+.white-div {
+  margin: auto;
+  width: 300px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 5%;
 }
 
 label {
